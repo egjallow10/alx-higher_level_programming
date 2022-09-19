@@ -11,7 +11,7 @@ class Rectangle:
         self.width = width
         self.height = height
 
-     def __str__(self):
+    def __str__(self):
         total = ""
         if self.__height == 0 or self.width == 0:
             return total
