@@ -3,7 +3,6 @@
 This module defines a Rectangle Object.
 """
 
-
 class Rectangle:
     """Retangle object with getter and setters
     """
@@ -19,7 +18,7 @@ class Rectangle:
             total += ("#" * self.__width)
             if i is not self.__height - 1:
                 total += "\n"
-        return 
+        return total
 
     @property
     def width(self):
@@ -52,4 +51,3 @@ class Rectangle:
         if self.__width == 0 or self.__height == 0:
             return 0
         return (2 * self.__width) + (2 * self.__height)
-
