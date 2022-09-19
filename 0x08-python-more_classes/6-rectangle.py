@@ -6,9 +6,12 @@ This module defines a Rectangle Object.
 class Rectangle:
     """Retangle object with getter and setters
     """
+    number_of_instances = 0
+
     def __init__(self, width=0, height=0):
         self.width = width
         self.height = height
+        Rectangle.number_of_instances += 1
 
     def __str__(self):
         total = ""
@@ -25,6 +28,7 @@ class Rectangle:
 
     def __del__(self):
         print("Bye rectangle...")
+        Rectangle.number_of_instances -= 1
 
     @property
     def width(self):
