@@ -5,7 +5,6 @@ class LockedClass:
     def __init__(self, name="Fernando"):
         self.first_name = name
 
-
 if __name__ == '__main__':
     lc = LockedClass()
     lc.first_name = "Fernando"
