@@ -3,6 +3,7 @@
 This module defines a Rectangle Object.
 """
 
+
 class Rectangle:
     """Retangle object with getter and setters
     """
@@ -30,7 +31,10 @@ class Rectangle:
 
     def __del__(self):
         print("Bye rectangle...")
-
+    
+    @property
+    def width(self):
+        return self.__width
 
     @staticmethod
     def bigger_or_equal(rect_1, rect_2):
@@ -42,10 +46,6 @@ class Rectangle:
             return rect_1
         else:
             return rect_2
-    
-    @property
-    def width(self):
-        return self.__width
 
     @width.setter
     def width(self, value):
