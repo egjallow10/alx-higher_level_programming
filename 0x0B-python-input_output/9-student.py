@@ -23,6 +23,7 @@ class Student:
                 d[a] = self.__dict__[a]
         return d
 
+
 if __name__ == '__main__':
     student_1 = Student("John", "Doe", 23)
     student_2 = Student("Bob", "Dylan", 27)
