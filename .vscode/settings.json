@@ -1,0 +1,4 @@
+{
+    "python.linting.pycodestyleCategorySeverity.E": "Warning",
+    "python.linting.pycodestyleEnabled": true
+}

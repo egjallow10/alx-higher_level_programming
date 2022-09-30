@@ -3,7 +3,7 @@
 This module defines Rectangle Object.
 """
 
-class  Rectangle:
 
-    """ Rectangle """
+class Rectangle:
+    """ empty `Rectangle` class """
     pass
