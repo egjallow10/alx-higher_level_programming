@@ -3,6 +3,7 @@
 The `Base` class for the `models` module.
 """
 import json
+import turtle
 
 
 class Base:
@@ -24,36 +25,107 @@ class Base:
             self.id = Base.__nb_objects
 
     @staticmethod
-    def to_json_string(list_dictionaries):
-        """
-        Returns the JSON string repr
-        """
-        if list_dictionaries is None or not len(list_dictionaries):
+    def to_json_string(list_dictionaries: dict):
+        """list to json"""
+        if list_dictionaries is None:
             return "[]"
-        return json.dumps(list_dictionaries)
+        else:
+            return json.dumps(list_dictionaries)
+
+    @classmethod
+    def save_to_file(cls, list_objs):
+        """save to json file"""
+        filename = cls.__name__ + ".json"
+        text = []
+        if list_objs is not None:
+            for lst in list_objs:
+                text.append(lst.to_dictionary())
+        with open(filename, mode="w", encoding="utf-8") as f:
+            return f.write(Base.to_json_string(text))
 
     @staticmethod
     def from_json_string(json_string):
-        """
-        Returns a list of jSON string repr
-        """
-        if not isinstance(json_string, str) or len(json_string) == 0:
+        """transform a JSON string representation `json_string` to a list"""
+        if json_string is None or len(json_string) == 0:
             return []
-        return json.loads(json_string)
+        else:
+            return json.loads(json_string)
 
+    @classmethod
+    def create(cls, **dictionary):
+        """create a new object from dictionary"""
+        if cls.__name__ == "Rectangle":
+            new = cls(10, 10)
+        elif cls.__name__ == "Square":
+            new = cls(10, 10)
+        new.update(**dictionary)
+        return new
 
-if __name__ == '__main__':
-    b1 = Base()
-    print(b1.id)
+    @classmethod
+    def load_from_file(cls):
+        """load from file"""
+        filename = cls.__name__ + ".json"
+        object_created = []
+        with open(filename, 'r') as f:
+            file_string = f.read().replace('\n', '')
+            data = cls.from_json_string(file_string)
+            for el in data:
+                object_created.append(cls.create(**el))
 
-    b2 = Base()
-    print(b2.id)
+        return object_created
 
-    b3 = Base()
-    print(b3.id)
+    @classmethod
+    def save_to_file_csv(cls, list_objs):
+        """save to csv file"""
+        filename = cls.__name__ + ".csv"
+        content = ""
+        text = []
+        if list_objs is not None:
+            content += ','.join(list_objs[0].to_dictionary().keys())
+            content += '\n'
+            for lst in list_objs:
+                content += ','.join(
+                    map(str, lst.to_dictionary().values())
+                )
+                content += '\n'
 
-    b4 = Base(12)
-    print(b4.id)
+        with open(filename, mode="w", encoding="utf-8") as f:
+            return f.write(content)
 
-    b5 = Base()
-    print(b5.id)
+    @classmethod
+    def load_from_file_csv(cls):
+        """load from csv"""
+        filename = cls.__name__ + ".csv"
+        object_created = []
+
+        with open(filename, 'r') as f:
+            header = f.readline().replace('\n', '').split(',')
+            for el in f.readlines():
+                values = map(int, el.replace('\n', '').split(','))
+                data = dict(zip(header, values))
+                object_created.append(cls.create(**data))
+
+        return object_created
+
+    @classmethod
+    def draw(cls, list_rectangles, list_squares):
+        """draw the figure
+        """
+        window = turtle.Screen()
+        pen = turtle.Pen()
+        figures = list_rectangles + list_squares
+
+        for fig in figures:
+            pen.up()
+            pen.goto(fig.x, fig.y)
+            pen.down()
+            pen.forward(fig.width)
+            pen.right(90)
+            pen.forward(fig.height)
+            pen.right(90)
+            pen.forward(fig.width)
+            pen.right(90)
+            pen.forward(fig.height)
+            pen.right(90)
+
+        window.exitonclick()
