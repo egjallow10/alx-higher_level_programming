@@ -1,59 +1,78 @@
 #!/usr/bin/python3
 """
-The `Base` class for the `models` module.
+base module
 """
 import json
 
 
 class Base:
     """
-    A `Base` class using a private class attribute `__nb_objects` to
-    manage the public instance attribute `id` in all our future classes
+    Class that makes the base for other classes.
+    Manages __nb_objects and public instance attribute id.
     """
-    __nb_objects = 0
+    __nb_object = 0
 
     def __init__(self, id=None):
         """
-        Initializes `id` with input value, if given,
-        else increment `__nb_objects` and assign its new value to `id`.
+        initialize with given id or if None increment __nb_objects
+        and assign new value to id
         """
         if id is not None:
             self.id = id
         else:
-            Base.__nb_objects += 1
-            self.id = Base.__nb_objects
+            Base.__nb_object += 1
+            self.id = Base.__nb_object
 
     @staticmethod
     def to_json_string(list_dictionaries):
         """
-        Returns the JSON string repr
+        returns JSON string representation of list_dictionaries
         """
-        if list_dictionaries is None or not len(list_dictionaries):
+        if list_dictionaries is None or len(list_dictionaries) is 0:
             return "[]"
         return json.dumps(list_dictionaries)
+
+    @classmethod
+    def save_to_file(cls, list_objs):
+        """
+        writes JSON string representation to list_objs file
+        """
+        name = cls.__name__ + ".json"
+        ret_list = []
+        if list_objs is not None:
+            for i in list_objs:
+                ret_list.append(i.to_dictionary())
+        with open(name, 'w') as f:
+            f.write(cls.to_json_string(ret_list))
 
     @staticmethod
     def from_json_string(json_string):
         """
-        Returns a list of jSON string repr
+        returns list of JSON string representation
         """
-        if not isinstance(json_string, str) or len(json_string) == 0:
+        if json_string is None or json_string is "":
             return []
         return json.loads(json_string)
 
+    @classmethod
+    def create(cls, **dictionary):
+        """
+        returns instance with attributes already set
+        """
+        new_instance = cls(1, 1)
+        new_instance.update(**dictionary)
+        return new_instance
 
-if __name__ == '__main__':
-    b1 = Base()
-    print(b1.id)
-
-    b2 = Base()
-    print(b2.id)
-
-    b3 = Base()
-    print(b3.id)
-
-    b4 = Base(12)
-    print(b4.id)
-
-    b5 = Base()
-    print(b5.id)
+    @classmethod
+    def load_from_file(cls):
+        """
+        retuns list of instances
+        """
+        name = cls.__name__ + ".json"
+        ret_list = []
+        with open(name) as f:
+            file_list = cls.from_json_string(f.read())
+        for i in file_list:
+            n = cls.create(**i)
+            ret_list.append(n)
+        return ret_list
