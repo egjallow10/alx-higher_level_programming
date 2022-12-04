@@ -13,8 +13,8 @@ if __name__ == '__main__':
             db=argv[3]
             )
     cursor = db.cursor()
-    cursor.execute("SELECT cities.id, cities.name, states.name "
-                   "FROM cities JOIN states "
+    cursor.execute("SELECT cities.id, cities.name"
+                   "FROM states JOIN cities "
                    "ON states.id = cities.state_id "
                    "ORDER BY cities.id ASC")
     states = cursor.fetchall()
