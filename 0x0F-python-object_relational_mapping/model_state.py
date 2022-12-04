@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-#!/usr/bin/python3
 """
 The `State` class inherits from `Base`, an SQLAlchemy declarative base.
 """
