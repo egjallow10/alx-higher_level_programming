@@ -20,9 +20,7 @@ if __name__ == '__main__':
         WHERE states.name= %s\
         ORDER BY cities.id", (argv[4],))
     states = cursor.fetchall()
-    list_of_cities = []
     for city in states:
-        list_of_cities.append(city)
-    print(list_of_cities, sep=',')
+        print(city, sep=',', end=" ")
     cursor.close()
     db.close()
