@@ -13,7 +13,7 @@ if __name__ == '__main__':
             db=argv[3]
             )
     cursor = db.cursor()
-    cursor.execute("SELECT * FROM states WHERE state ={argv[4]}")
+    cursor.execute("SELECT * FROM states WHERE name ={argv[4]}")
     states = cursor.fetchall()
     for state in states:
         if state[1] == argv[4]:
