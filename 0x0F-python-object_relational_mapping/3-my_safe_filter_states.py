@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-"""List all states where state == arg from the database"""
+"""List all states where state == arg from the database
+in safe way
+"""
 
 if __name__ == '__main__':
     from sys import argv
