@@ -22,7 +22,6 @@ if __name__ == '__main__':
                     "ORDER BY id"), name)
     states = cursor.fetchall()
     for state in states:
-        if state[1] == name:
-            print(state)
+        print(state)
     cursor.close()
     db.close()
