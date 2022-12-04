@@ -13,12 +13,16 @@ if __name__ == '__main__':
             db=argv[3]
             )
     cursor = db.cursor()
-    cursor.execute("SELECT cities.id, cities.name"
-                   "FROM states JOIN cities "
-                   "ON states.id = cities.state_id "
-                   "ORDER BY cities.id ASC")
+    cursor.execute("SELECT cities.name\
+        FROM cities\
+        JOIN states\
+        ON cities.state_id=states.id\
+        WHERE states.name= %s\
+        ORDER BY cities.id", (argv[4],))
     states = cursor.fetchall()
+    list_of_cities = []
     for city in states:
-        print(city, sep=',')
+        list_of_cities.append(city)
+    print(list_of_cities, sep=',')
     cursor.close()
     db.close()
