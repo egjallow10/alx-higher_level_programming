@@ -21,6 +21,6 @@ if __name__ == '__main__':
         ORDER BY cities.id", (argv[4],))
     states = cursor.fetchall()
     for city in states:
-        print(city, sep=',', end=" ")
+        print(city, end=" ")
     cursor.close()
     db.close()
