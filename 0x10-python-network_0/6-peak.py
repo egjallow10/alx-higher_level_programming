@@ -4,8 +4,8 @@
 
 def find_peak(list_of_integers):
     ''' Finds a peak in a list of unsorted integers. '''
-    l = list_of_integers
-    return max(l) if l else None
+    lst = list_of_integers
+    return max(lst) if lst else None
 
 
 if __name__ == '__main__':
