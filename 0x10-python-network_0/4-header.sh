@@ -1,3 +1,3 @@
-fgh#!/bin/bash
-#A script to send a delete request 
-curl -s "$1" -X DELETE  
+#!/bin/bash
+#A script to send a  request with a header
+curl -s -H "X-School-User-Id:98" "$1"
