@@ -1,3 +1,11 @@
 #!/usr/bin/node
-require('request').get(`http://swapi.co/api/films/${process.argv[2]}`,
-  (err, resp) => console.log(err || JSON.parse(resp.body).title));
+/** Script tp print the tittle from the avialable api */
+const request = require('request');
+const url = 'https://swapi-api.alx-tools.com/api/films/';
+request.get(`${url}${process.argv[2]}`, (err, data) => {
+  if (err) {
+    console.log(err);
+  }
+  const mytitle = JSON.parse(data.body);
+  console.log(mytitle.title);
+});
