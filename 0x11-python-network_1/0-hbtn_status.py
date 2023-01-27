@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+"""fetche url and prinf"""
 import urllib.request
 
 if __name__ == "__main__":
